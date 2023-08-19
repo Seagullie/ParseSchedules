@@ -160,8 +160,12 @@ references
 trash
 output_json/*
 
+
 # example files to exclude
 
 !word_schedules/122_126_5к_2с_22_23.docx
 !output_json/ІСТ-5.json
 
+# universal gitignore folder
+/git_ignore
+/git_ignore/*

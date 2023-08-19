@@ -183,6 +183,9 @@ def preprocess_table(df):
     # rename first two columns
     df.columns = ["День", "Пара"] + df.columns[2::].tolist()
 
+    # fill in NaN values in days with the values from the cells above them
+    df["День"] = df["День"].fillna(method="ffill")
+
     # remove spaces and reverse the word if it ends with uppercase letter
     df["День"] = df["День"].map(lambda day: day.replace(" ", ""))
     df["День"] = df["День"].map(lambda day: day[::-1] if day[-1].isupper() else day)
@@ -192,6 +195,12 @@ def preprocess_table(df):
 
 path_to_doc_schedules = args["word_schedules"]
 doc_schedules = os.listdir(path_to_doc_schedules)
+
+# filter out non-word documents
+doc_schedules = [doc for doc in doc_schedules if doc.endswith(".docx")]
+
+# filter out opened word documents
+doc_schedules = [doc for doc in doc_schedules if not doc.startswith("~$")]
 
 bar = IncrementalBar("Parsing schedules...", max=len(doc_schedules))
 
