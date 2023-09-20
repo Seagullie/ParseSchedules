@@ -8,9 +8,9 @@
 
 Загальний хід: **.docx** --> **pandas таблиця** --> **.json зі розкладом**
 
-```shell
-python parse_schedules.py -h
+`python parse_schedules.py -h`
 
+```shell
 usage: parse_schedules.py [-h] [-w WORD_SCHEDULES] [-g] [-n SCHEDULES_PER_FOLDER] [-v]
 
 optional arguments:
