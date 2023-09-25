@@ -1,0 +1,175 @@
+{
+    "monday": {
+        "classes": [
+            {
+                "index": 1,
+                "name": "Програмування для мобільних платформ",
+                "room": "а.419",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": null,
+                "group": "ІСТ-41"
+            },
+            {
+                "index": 2,
+                "name": "Програмування для мобільних платформ",
+                "room": "а.405",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": null,
+                "group": "ІСТ-41"
+            },
+            {
+                "index": 3,
+                "name": "Адміністрування хмарних сховищ та даних (ДВВ)",
+                "room": "а.405",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": null,
+                "group": "КН-41"
+            },
+            {
+                "index": 4,
+                "name": "Архітектура і технології інтернет речей (ДВВ)",
+                "room": "а.419",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 1.0,
+                "isBiweekly": true,
+                "week": 1,
+                "group": "КН-21|КН-21_2|КН-21_3"
+            },
+            {
+                "index": 4,
+                "name": "Архітектура і технології інтернет речей (ДВВ)",
+                "room": "а.419",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 2.0,
+                "isBiweekly": true,
+                "week": 2,
+                "group": "КН-22|КН-22_2|КН-22_3|КН-22_4|КН-22_5"
+            },
+            {
+                "index": 5,
+                "name": "Архітектура і технології інтернет речей (ДВВ)",
+                "room": "а.402",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 2.0,
+                "isBiweekly": true,
+                "week": 2,
+                "group": "ІСТ-21"
+            },
+            {
+                "index": 5,
+                "name": "ІПЗПКТ",
+                "room": "а.403",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 1.0,
+                "isBiweekly": true,
+                "week": 1,
+                "group": "КТ-11м|КТ-12м"
+            }
+        ]
+    },
+    "tuesday": {
+        "classes": [
+            {
+                "index": 5,
+                "name": "Адміністрування хмарних сховищ та даних (ДВВ)",
+                "room": "а.303",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 2.0,
+                "isBiweekly": true,
+                "week": 2,
+                "group": "КН-41"
+            },
+            {
+                "index": 5,
+                "name": "ІПЗПКТ",
+                "room": "а.403",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 1.0,
+                "isBiweekly": true,
+                "week": 1,
+                "group": "КТ-12м|КТ-12м_2"
+            }
+        ]
+    },
+    "wednesday": {
+        "classes": [
+            {
+                "index": 3,
+                "name": "ПІС",
+                "room": "а.419",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 1.0,
+                "isBiweekly": true,
+                "week": 1,
+                "group": "КН-31"
+            },
+            {
+                "index": 3,
+                "name": "ПІС",
+                "room": "а.419",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 2.0,
+                "isBiweekly": true,
+                "week": 2,
+                "group": "КН-32"
+            },
+            {
+                "index": 4,
+                "name": "Архітектура і технології інтернет речей (ДВВ)",
+                "room": "а.405",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": null,
+                "group": "ІСТ-21|КН-21|КН-21_2|КН-21_3|КН-22|КН-22_2|КН-22_3|КН-22_4|КН-22_5"
+            },
+            {
+                "index": 5,
+                "name": "Корпоративні ІТ-ресурси (ДВВ)",
+                "room": "а.306",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 1.0,
+                "isBiweekly": true,
+                "week": 1,
+                "group": "ІСТ-31"
+            },
+            {
+                "index": 5,
+                "name": "ПІС",
+                "room": "а.303",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": 2.0,
+                "isBiweekly": true,
+                "week": 2,
+                "group": "ІСТ-31"
+            },
+            {
+                "index": 6,
+                "name": "Корпоративні ІТ-ресурси (ДВВ)",
+                "room": "а.419",
+                "qualification": "ст. в.",
+                "teacher": "Шепіта",
+                "label": null,
+                "group": "ІСТ-31"
+            }
+        ]
+    },
+    "thursday": {
+        "classes": []
+    },
+    "friday": {
+        "classes": []
+    }
+}

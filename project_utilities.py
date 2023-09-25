@@ -121,3 +121,28 @@ def correct_group_names(df):
     df.columns = corrected_col_names
 
     return df
+
+
+def construct_empty_schedule():
+    json_ = {}
+    for day in days_eng_lower:
+        json_[day] = {"classes": []}
+    return json_
+
+
+# merges classes with same signature which is (index, name, week). The group fields are combined into final merge
+def merge_classes(classes):
+    merged_classes = {}
+
+    for cls in classes:
+        key = (cls["index"], cls["name"], cls.get("week", 1))
+        if key not in merged_classes:
+            merged_classes[key] = cls
+        else:
+            # Merge the "group" field by appending the group name
+            merged_classes[key]["group"] += f"|{cls['group']}"
+
+    # Convert the merged_classes dictionary back to a list of classes
+    merged_classes_list = list(merged_classes.values())
+
+    return merged_classes_list

@@ -159,12 +159,14 @@ word_schedules/*
 references
 trash
 output_json/*
+teachers_output_json/*
 
 
 # example files to exclude
 
 !word_schedules/122_126_5к_2с_22_23.docx
 !output_json/ІСТ-5.json
+!teachers_output_json/Шепіта.json
 
 # universal gitignore folder
 /git_ignore
