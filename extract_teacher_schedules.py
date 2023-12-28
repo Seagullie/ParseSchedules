@@ -3,7 +3,7 @@
 import os
 import json
 from pprint import pprint
-from models import WeeklySchedule
+from models import Lesson, WeeklySchedule
 
 from utilities import construct_empty_schedule, merge_classes
 
@@ -30,47 +30,22 @@ for root, dirs, files in os.walk(path_to_student_schedules):
             student_schedules_json[file_name] = parsed_json
 
 # iterate over all student schedules and extract all teachers into a set
-# sample schedule json:
-# {
-#     "monday": {
-#         "classes": [
-#             {
-#                 "index": 3,
-#                 "name": "ТПВ",
-#                 "room": "Л.2",
-#                 "qualification": "ст. в.",
-#                 "teacher": "Снігур",
-#                 "label": 2.0,
-#                 "isBiweekly": true,
-#                 "week": 2
-#             },
-#             {
-#                 "index": 4,
-#                 "name": "Технологія поліграфічного виробництва (ТПВ)",
-#                 "room": "Л.2",
-#                 "qualification": "ст. в.",
-#                 "teacher": "Снігур",
-#                 "label": 1.0,
-#                 "isBiweekly": true,
-#                 "week": 1
-#             }
-#         ]
-#     },
 
 teachers: "set[str]" = set()
 for schedule_name, schedule_data in student_schedules_json.items():
     for day in schedule_data.keys():
-        for lesson in schedule_data[day]["classes"]:
-            should_add_teacher = lesson["teacher"] is not None
+        lessons: list[Lesson] = schedule_data[day]["classes"]
+        for lesson in lessons:
+            should_add_teacher = lesson.teacher is not None
 
             if should_add_teacher:
-                if "|" in lesson["teacher"]:
+                if "|" in lesson.teacher:
                     # split by pipe and iterate
-                    teachers_list = lesson["teacher"].split("|")
+                    teachers_list = lesson.teacher.split("|")
                     teachers.update(teachers_list)
 
                 else:
-                    teachers.add(lesson["teacher"])
+                    teachers.add(lesson.teacher)
 
 
 print(teachers)
@@ -82,9 +57,11 @@ teacher_name_to_schedule_mapping = {
 }
 
 for schedule_name, schedule_data in student_schedules_json.items():
+    day: str
     for day in schedule_data.keys():
-        for lesson in schedule_data[day]["classes"]:
-            teacher = lesson["teacher"]
+        lessons: list[Lesson] = schedule_data[day]["classes"]
+        for lesson in lessons:
+            teacher = lesson.teacher
             has_at_least_one_teacher = teacher is not None
             has_several_teachers = has_at_least_one_teacher and "|" in teacher
 
@@ -105,31 +82,6 @@ for schedule_name, schedule_data in student_schedules_json.items():
                 else:
                     # otherwise just add the lesson to the teacher's schedule
                     get_day_classes(teacher).append(lesson)
-
-sample_classes = [
-    {
-        "group": "КН-41",
-        "index": 5,
-        "isBiweekly": True,
-        "label": 2.0,
-        "name": "Адміністрування хмарних сховищ та даних " "(ДВВ)",
-        "qualification": "ст. в.",
-        "room": "а.303",
-        "teacher": "Шепіта",
-        "week": 2,
-    },
-    {
-        "group": "КТ-12м",
-        "index": 5,
-        "isBiweekly": True,
-        "label": 1.0,
-        "name": "ІПЗПКТ",
-        "qualification": "ст. в.",
-        "room": "а.403",
-        "teacher": "Шепіта",
-        "week": 1,
-    },
-]
 
 # merge classes with same index, name and week. The final class should combine groups from each class
 for teacher, schedule in teacher_name_to_schedule_mapping.items():

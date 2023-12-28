@@ -2,6 +2,8 @@ import re
 
 from pandas import DataFrame, Series
 
+from models import DaySchedule
+
 
 qualifications = [
     r"доц\.",
@@ -15,12 +17,20 @@ qualifications = [
     r"ас\.",
 ]
 
-days = ["Понеділок", "Вівторок", "Середа", "Четвер", "П’ятниця"]
+days_ukr = ["Понеділок", "Вівторок", "Середа", "Четвер", "П’ятниця"]
 days_eng_lower = ["monday", "tuesday", "wednesday", "thursday", "friday"]
 
 
-# creates duplicate signature and drops rows that have same duplicate signature
 def remove_duplicates(df: DataFrame):
+    """
+    Removes duplicate rows from a DataFrame based on a combination of columns (row signature).
+
+    Args:
+        df (DataFrame): The DataFrame to remove duplicates from.
+
+    Returns:
+        DataFrame: The DataFrame with duplicate rows removed.
+    """
     duplicate_signature = df["index"].astype(str) + df["name"] + df["room"]
     df.loc[:, "duplicate_signature"] = duplicate_signature
 
@@ -38,6 +48,15 @@ def remove_duplicates(df: DataFrame):
 
 
 def strip_each_text_cell(df: DataFrame):
+    """
+    Removes whitespaces, trailing commas, underscores, and collapses double whitespaces in each text cell of a DataFrame.
+
+    Parameters:
+    df (DataFrame): The DataFrame containing text cells to be processed.
+
+    Returns:
+    DataFrame: The DataFrame with processed text cells.
+    """
     # remove whitespaces and trailing commas in each text cell
     # select all string columns and apply the strip() function thrice to remove whitespaces and trailing commas and underscores, and whitespaces again ,
     string_cols_df = df.select_dtypes(include=["object"])
@@ -58,6 +77,15 @@ def strip_each_text_cell(df: DataFrame):
 
 
 def label_upper_and_lower_duplicates(df: DataFrame):
+    """
+    Labels the first set of duplicate rows with 'first' and the second set with 'second' based on the 'index' column.
+
+    Args:
+        df (DataFrame): The input DataFrame.
+
+    Returns:
+        DataFrame: The DataFrame with the 'label' column added.
+    """
     # Identify rows with duplicate values in the 'index' column. keep = false for all duplicates
     duplicates = df.duplicated(subset=["index"], keep=False)
 
@@ -73,6 +101,16 @@ def label_upper_and_lower_duplicates(df: DataFrame):
 
 
 def extract_group_names(df: DataFrame):
+    """
+    Extracts group names from the DataFrame columns.
+
+    Args:
+        df (DataFrame): The input DataFrame.
+
+    Returns:
+        list[str]: A list of column names that match the group name pattern.
+    """
+
     # it's a group if it follows this pattern: 1-2 letters, then dash, then 1-2 numbers
     pattern = r"(\w{1,2}-\d{1,2})"
 
@@ -125,7 +163,7 @@ def correct_group_names(df: DataFrame):
     return df
 
 
-def construct_empty_schedule():
+def construct_empty_schedule() -> DaySchedule:
     json_ = {}
     for day in days_eng_lower:
         json_[day] = {"classes": []}
@@ -134,6 +172,15 @@ def construct_empty_schedule():
 
 # merges classes with same signature which is (index, name, week). The group fields are combined into final merge
 def merge_classes(classes: "list[Series]"):
+    """
+    Merge classes with the same signature and append the group names to each merged class.
+
+    Args:
+        classes (list[Series]): A list of classes to be merged.
+
+    Returns:
+        list[Series]: A list of merged classes.
+    """
     merged_classes: dict[tuple[int, str, int], Series] = {}
 
     for cls in classes:

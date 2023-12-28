@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import json
+from models import Lesson, WeeklySchedule
 from pydocx import PyDocX
 import argparse
 from progress.bar import IncrementalBar
@@ -22,7 +23,7 @@ from utilities import (
     qualifications,
 )
 from utilities import (
-    days,
+    days_ukr,
     days_eng_lower,
     extract_group_names,
     correct_group_names,
@@ -138,10 +139,13 @@ def extract_single_schedule(df: pd.DataFrame, target_group: str):
     # --- process the table [end] ---
     # chunk into several dfs by day
 
-    dfs_per_day = [df[df["День"] == day] for day in days]
+    dfs_per_day = [df[df["День"] == day] for day in days_ukr]
 
     def df_to_json():
-        json_ = {}
+        """
+        Converts a DataFrame to a JSON object. Saves the JSON object to a file.
+        """
+        json_: WeeklySchedule = {}
         for day, day_df in zip(days_eng_lower, dfs_per_day):
             if day_df.empty:
                 json_[day] = []
@@ -161,22 +165,25 @@ def extract_single_schedule(df: pd.DataFrame, target_group: str):
             day_df = day_df[day_df["name"].str.startswith("---") != True]
 
             day_df = day_df.drop(["День"], axis=1)
-            classes = json.loads(day_df.to_json(orient="records", force_ascii=False))
+            # TODO: Annotate
+            classes: list[Lesson] = json.loads(
+                day_df.to_json(orient="records", force_ascii=False)
+            )
             for class_ in classes:
-                if not class_["label"] is None:
-                    class_["isBiweekly"] = True
-                    class_["week"] = int(class_["label"])
+                if not class_.label is None:
+                    class_.isBiweekly = True
+                    class_.week = int(class_["label"])
 
             json_[day] = {"classes": classes}
 
         # write json to file
-        dfs_per_day_json = json.dumps(json_, indent=4, ensure_ascii=False)
+        dfs_per_day_json_string = json.dumps(json_, indent=4, ensure_ascii=False)
         with open(
             f"output_json/{target_group}.json",
             "w",
             encoding="utf-8",
         ) as f:
-            f.write(dfs_per_day_json)
+            f.write(dfs_per_day_json_string)
 
     df_to_json()
     logging.info(df)
