@@ -15,13 +15,13 @@ warnings.filterwarnings("ignore", category=SettingWithCopyWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 # warnings.resetwarnings()
 
-from project_utilities import (
+from utilities import (
     remove_duplicates,
     strip_each_text_cell,
     label_upper_and_lower_duplicates,
     qualifications,
 )
-from project_utilities import (
+from utilities import (
     days,
     days_eng_lower,
     extract_group_names,
@@ -30,6 +30,7 @@ from project_utilities import (
 
 
 # construct the argument parser and parse the arguments
+
 ap = argparse.ArgumentParser()
 ap.add_argument(
     "-w",
@@ -61,16 +62,26 @@ ap.add_argument(
 )
 
 args = vars(ap.parse_args())
-# print("parsed args:")
-# print(ap.parse_args())
 
 # Configure the logging module
+
 logging_level = logging.NOTSET if args["verbose"] else logging.ERROR
 logging.basicConfig(level=logging_level)
 
 
-# extracts single schedule from the whole table. Saves it to a separate file, the name of which is target_group.json
-def extract_single_schedule(df, target_group):
+def extract_single_schedule(df: pd.DataFrame, target_group: str):
+    """
+    Extracts a single schedule from a DataFrame based on the target group.
+    Saves it to a separate file, the name of which is target_group.json
+
+    Args:
+        df (pandas.DataFrame): The DataFrame containing the schedule data.
+        target_group (str): The target group to filter the schedule for.
+
+    Returns:
+        None
+    """
+
     # filter groups to target group
     df = df.loc[:, ["День", "Пара", target_group]]
 
@@ -171,7 +182,7 @@ def extract_single_schedule(df, target_group):
     logging.info(df)
 
 
-def preprocess_table(df):
+def preprocess_table(df: pd.DataFrame):
     # --- process the table ---
 
     # Drop empty columns
@@ -193,7 +204,7 @@ def preprocess_table(df):
     return df
 
 
-path_to_doc_schedules = args["word_schedules"]
+path_to_doc_schedules: str = args["word_schedules"]
 doc_schedules = os.listdir(path_to_doc_schedules)
 
 # filter out non-word documents
@@ -224,8 +235,8 @@ for doc_schedule in doc_schedules:
 
 warnings.resetwarnings()
 
-group_into_folders = args["group_into_folders"]
-group_size = args["schedules_per_folder"]
+group_into_folders: bool = args["group_into_folders"]
+group_size: int = args["schedules_per_folder"]
 
 if group_into_folders:
     # group all the schedules into folders. Each folder should have group_size schedules

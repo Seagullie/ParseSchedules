@@ -3,11 +3,12 @@
 import os
 import json
 from pprint import pprint
+from models import WeeklySchedule
 
-from project_utilities import construct_empty_schedule, merge_classes
+from utilities import construct_empty_schedule, merge_classes
 
 path_to_student_schedules = "./output_json"
-student_schedules_json = {}
+student_schedules_json: "dict[str, WeeklySchedule]" = {}
 
 # read all json files in the directory and all subdirectories
 for root, dirs, files in os.walk(path_to_student_schedules):
@@ -15,16 +16,13 @@ for root, dirs, files in os.walk(path_to_student_schedules):
         if file.endswith(".json"):
             print(os.path.join(root, file))
 
-            # TODO: refactor to context manager
-            # open the file
-            f = open(os.path.join(root, file), "r", encoding="utf8")
-            # read the file
-            data = f.read()
-            # close the file
-            f.close()
+            # open the file using a context manager
+            with open(os.path.join(root, file), "r", encoding="utf8") as f:
+                # read the file
+                data = f.read()
 
             # parse the json
-            parsed_json = json.loads(data)
+            parsed_json: WeeklySchedule = json.loads(data)
 
             #  get file name without extension
             file_name = os.path.splitext(file)[0]
@@ -58,7 +56,8 @@ for root, dirs, files in os.walk(path_to_student_schedules):
 #             }
 #         ]
 #     },
-teachers = set()
+
+teachers: "set[str]" = set()
 for schedule_name, schedule_data in student_schedules_json.items():
     for day in schedule_data.keys():
         for lesson in schedule_data[day]["classes"]:

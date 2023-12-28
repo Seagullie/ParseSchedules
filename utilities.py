@@ -1,5 +1,7 @@
 import re
 
+from pandas import DataFrame, Series
+
 
 qualifications = [
     r"доц\.",
@@ -18,7 +20,7 @@ days_eng_lower = ["monday", "tuesday", "wednesday", "thursday", "friday"]
 
 
 # creates duplicate signature and drops rows that have same duplicate signature
-def remove_duplicates(df):
+def remove_duplicates(df: DataFrame):
     duplicate_signature = df["index"].astype(str) + df["name"] + df["room"]
     df.loc[:, "duplicate_signature"] = duplicate_signature
 
@@ -35,7 +37,7 @@ def remove_duplicates(df):
     return df
 
 
-def strip_each_text_cell(df):
+def strip_each_text_cell(df: DataFrame):
     # remove whitespaces and trailing commas in each text cell
     # select all string columns and apply the strip() function thrice to remove whitespaces and trailing commas and underscores, and whitespaces again ,
     string_cols_df = df.select_dtypes(include=["object"])
@@ -55,7 +57,7 @@ def strip_each_text_cell(df):
     return df
 
 
-def label_upper_and_lower_duplicates(df):
+def label_upper_and_lower_duplicates(df: DataFrame):
     # Identify rows with duplicate values in the 'index' column. keep = false for all duplicates
     duplicates = df.duplicated(subset=["index"], keep=False)
 
@@ -70,27 +72,27 @@ def label_upper_and_lower_duplicates(df):
     return df
 
 
-def extract_group_names(df):
+def extract_group_names(df: DataFrame):
     # it's a group if it follows this pattern: 1-2 letters, then dash, then 1-2 numbers
     pattern = r"(\w{1,2}-\d{1,2})"
 
-    cols = df.columns
+    cols: list[str] = df.columns
 
     filtered_cols = [col for col in cols if re.search(pattern, col)]
 
     return filtered_cols
 
 
-def is_group_name(name):
+def is_group_name(name: str):
     # it's a group if it follows this pattern: 1-2 letters, then dash, then 1-2 numbers
     pattern = r"(\w{1,2}-\d{1,2})"
 
-    is_match = re.search(pattern, name)
+    is_match = re.search(pattern, name) is not None
 
     return is_match
 
 
-def correct_group_name(name):
+def correct_group_name(name: str):
     # example of a name that has to be corrected: ТП-5м.1
     # it should be corrected to ТП-5м_2
 
@@ -110,7 +112,7 @@ def correct_group_name(name):
     return output_str
 
 
-def correct_group_names(df):
+def correct_group_names(df: DataFrame):
     cols = df.columns
 
     corrected_col_names = map(
@@ -131,16 +133,20 @@ def construct_empty_schedule():
 
 
 # merges classes with same signature which is (index, name, week). The group fields are combined into final merge
-def merge_classes(classes):
-    merged_classes = {}
+def merge_classes(classes: "list[Series]"):
+    merged_classes: dict[tuple[int, str, int], Series] = {}
 
     for cls in classes:
-        key = (cls["index"], cls["name"], cls.get("week", 1))
-        if key not in merged_classes:
-            merged_classes[key] = cls
+        signature: tuple[int, str, int] = (
+            cls["index"],
+            cls["name"],
+            cls.get("week", 1),
+        )
+        if signature not in merged_classes:
+            merged_classes[signature] = cls
         else:
             # Merge the "group" field by appending the group name
-            merged_classes[key]["group"] += f"|{cls['group']}"
+            merged_classes[signature]["group"] += f"|{cls['group']}"
 
     # Convert the merged_classes dictionary back to a list of classes
     merged_classes_list = list(merged_classes.values())
