@@ -137,7 +137,7 @@ def extract_single_schedule(df: pd.DataFrame, target_group: str):
     df = strip_each_text_cell(df)
 
     # --- process the table [end] ---
-    # chunk into several dfs by day
+    # chunk into df by each day
 
     dfs_per_day = [df[df["День"] == day] for day in days_ukr]
 
@@ -166,18 +166,23 @@ def extract_single_schedule(df: pd.DataFrame, target_group: str):
 
             day_df = day_df.drop(["День"], axis=1)
             # TODO: Annotate
-            classes: list[Lesson] = json.loads(
-                day_df.to_json(orient="records", force_ascii=False)
-            )
+            classes: list[Lesson] = [
+                Lesson(**lesson_dict)
+                for lesson_dict in json.loads(
+                    day_df.to_json(orient="records", force_ascii=False)
+                )
+            ]
             for class_ in classes:
                 if not class_.label is None:
                     class_.isBiweekly = True
-                    class_.week = int(class_["label"])
+                    class_.week = int(class_.label)
 
             json_[day] = {"classes": classes}
 
         # write json to file
-        dfs_per_day_json_string = json.dumps(json_, indent=4, ensure_ascii=False)
+        dfs_per_day_json_string = json.dumps(
+            json_, indent=4, default=lambda obj: obj.__dict__, ensure_ascii=False
+        )
         with open(
             f"output_json/{target_group}.json",
             "w",
