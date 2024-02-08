@@ -3,16 +3,18 @@
         "classes": [
             {
                 "index": 4,
-                "name": "Системи керування контентом",
-                "room": "а.401",
+                "name": "а.311а Системи керування контентом проф. Піх",
+                "room": "а.311а",
                 "qualification": "проф.",
                 "teacher": "Піх",
-                "label": null
+                "label": null,
+                "isBiweekly": null,
+                "week": null
             },
             {
                 "index": 5,
-                "name": "Системи керування контентом",
-                "room": "а.303",
+                "name": "а.419 Системи керування контентом проф. Піх",
+                "room": "а.419",
                 "qualification": "проф.",
                 "teacher": "Піх",
                 "label": 2.0,
@@ -24,17 +26,9 @@
     "tuesday": {
         "classes": [
             {
-                "index": 2,
-                "name": "Створення інтерактивних медіа",
-                "room": "а.401",
-                "qualification": "доц.",
-                "teacher": "Кудряшова",
-                "label": null
-            },
-            {
-                "index": 3,
-                "name": "Проектування аудіо і відео",
-                "room": "а.405",
+                "index": 1,
+                "name": "а.306 Проектування аудіо і відео доц. Сабат",
+                "room": "а.306",
                 "qualification": "доц.",
                 "teacher": "Сабат",
                 "label": 1.0,
@@ -42,27 +36,49 @@
                 "week": 1
             },
             {
-                "index": 3,
-                "name": "Створення інтерактивних медіа",
-                "room": "а.303",
+                "index": 1,
+                "name": "а.304 Проектування аудіо і відео доц. Сабат",
+                "room": "а.304",
                 "qualification": "доц.",
-                "teacher": "Кудряшова",
+                "teacher": "Сабат",
                 "label": 2.0,
                 "isBiweekly": true,
                 "week": 2
             },
             {
-                "index": 4,
-                "name": "Методи і засоби візуалізації даних",
+                "index": 2,
+                "name": "а.306 Створення інтерактивних медіа доц. Кудряшова",
+                "room": "а.306",
+                "qualification": "доц.",
+                "teacher": "Кудряшова",
+                "label": null,
+                "isBiweekly": null,
+                "week": null
+            },
+            {
+                "index": 3,
+                "name": "а.401 Методи і засоби візуалізації даних доц. Кудряшова",
                 "room": "а.401",
                 "qualification": "доц.",
                 "teacher": "Кудряшова",
-                "label": null
+                "label": null,
+                "isBiweekly": null,
+                "week": null
             },
             {
-                "index": 5,
-                "name": "Методи і засоби візуалізації даних",
-                "room": "а.301",
+                "index": 4,
+                "name": "а.419 Створення інтерактивних медіа доц. Кудряшова",
+                "room": "а.419",
+                "qualification": "доц.",
+                "teacher": "Кудряшова",
+                "label": 1.0,
+                "isBiweekly": true,
+                "week": 1
+            },
+            {
+                "index": 4,
+                "name": "а.419 Методи і засоби візуалізації даних доц. Кудряшова",
+                "room": "а.419",
                 "qualification": "доц.",
                 "teacher": "Кудряшова",
                 "label": 2.0,
@@ -75,71 +91,71 @@
         "classes": [
             {
                 "index": 1,
-                "name": "Інтелектуальна власність",
-                "room": "а.325",
+                "name": "а.221 Інтелектуальна власність ст. в. Кравчук",
+                "room": "а.221",
                 "qualification": "ст. в.",
                 "teacher": "Кравчук",
-                "label": null
+                "label": null,
+                "isBiweekly": null,
+                "week": null
             },
             {
                 "index": 2,
-                "name": "Мультимедійне видавництво",
+                "name": "а.305 Мультимедійне видавництво доц. Миклушка",
                 "room": "а.305",
                 "qualification": "доц.",
                 "teacher": "Миклушка",
-                "label": null
+                "label": null,
+                "isBiweekly": null,
+                "week": null
             },
             {
                 "index": 3,
-                "name": "Мультимедійне видавництво",
+                "name": "а.317 Мультимедійне видавництво доц. Миклушка",
                 "room": "а.317",
                 "qualification": "доц.",
                 "teacher": "Миклушка",
-                "label": null
+                "label": null,
+                "isBiweekly": null,
+                "week": null
             },
             {
                 "index": 4,
-                "name": "КП «Мультимедійне видавництво»",
+                "name": "а.305 КП «Мультимедійне видавництво» доц. Миклушка",
                 "room": "а.305",
                 "qualification": "доц.",
                 "teacher": "Миклушка",
-                "label": null
+                "label": null,
+                "isBiweekly": null,
+                "week": null
             }
         ]
     },
     "thursday": {
         "classes": [
             {
-                "index": 1,
-                "name": "Проектування аудіо і відео",
-                "room": "а.305",
-                "qualification": "доц.",
-                "teacher": "Сабат",
-                "label": 1.0,
-                "isBiweekly": true,
-                "week": 1
-            },
-            {
                 "index": 2,
-                "name": "Формування наукових публікацій",
-                "room": "а.321",
+                "name": "а.312 Формування наукових публікацій проф. Огірко",
+                "room": "а.312",
                 "qualification": "проф.",
                 "teacher": "Огірко",
-                "label": 1.0,
+                "label": 2.0,
                 "isBiweekly": true,
-                "week": 1
+                "week": 2
             },
             {
                 "index": 3,
-                "name": "Системи комп’ютерного зору",
+                "name": "а.401 Системи комп’ютерного зору ас. Петрів",
                 "room": "а.401",
-                "qualification": "доц.",
-                "teacher": "Ратушняк",
-                "label": null
+                "qualification": "ас.",
+                "teacher": "Петрів",
+                "label": null,
+                "isBiweekly": null,
+                "week": null
             },
             {
                 "index": 4,
-                "name": "Формування наукових публікацій",
+                "name": "а.304 Формування наукових публікацій проф. Огірко",
                 "room": "а.304",
                 "qualification": "проф.",
                 "teacher": "Огірко",
@@ -149,10 +165,10 @@
             },
             {
                 "index": 4,
-                "name": "Системи комп’ютерного зору",
+                "name": "а.419 Системи комп’ютерного зору ас. Петрів",
                 "room": "а.419",
-                "qualification": "доц.",
-                "teacher": "Ратушняк",
+                "qualification": "ас.",
+                "teacher": "Петрів",
                 "label": 2.0,
                 "isBiweekly": true,
                 "week": 2
