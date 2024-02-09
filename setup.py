@@ -13,6 +13,6 @@ setup(
     author='Seagullie@GitHub',
     description='Extracts .json representations of schedules from .docx files',
     
-    packages= packages + ["."],
+    packages= packages,
     install_requires=requirements,
 )

@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import json
-from models import Lesson, WeeklySchedule
+from ParseSchedules.models import Lesson, WeeklySchedule
 from pydocx import PyDocX
 import argparse
 from progress.bar import IncrementalBar
@@ -16,13 +16,13 @@ warnings.filterwarnings("ignore", category=SettingWithCopyWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 # warnings.resetwarnings()
 
-from utilities import (
+from ParseSchedules.utilities import (
     remove_duplicates,
     strip_each_text_cell,
     label_upper_and_lower_duplicates,
     qualifications,
 )
-from utilities import (
+from ParseSchedules.utilities import (
     days_ukr,
     days_eng_lower,
     extract_group_names,
