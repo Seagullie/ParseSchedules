@@ -1,1 +1,1 @@
-from .parse_schedules import extract_all_schedules
+from .core import extract_all_schedules
