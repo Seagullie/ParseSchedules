@@ -217,53 +217,67 @@ def preprocess_table(df: pd.DataFrame):
 
 
 path_to_doc_schedules: str = args["word_schedules"]
-doc_schedules = os.listdir(path_to_doc_schedules)
-
-# filter out non-word documents
-doc_schedules = [doc for doc in doc_schedules if doc.endswith(".docx")]
-
-# filter out opened word documents
-doc_schedules = [doc for doc in doc_schedules if not doc.startswith("~$")]
-
-bar = IncrementalBar("Parsing schedules...", max=len(doc_schedules))
-
-for doc_schedule in doc_schedules:
-    # inputs:
-    # path_to_html = "document_pydoc_x_ВП-5.html"
-    path_to_html = os.path.join(path_to_doc_schedules, doc_schedule)
-
-    # Pass in a path
-    html = PyDocX.to_html(path_to_html)
-
-    df = pd.read_html(html, header=0)[0]
-    df = preprocess_table(df)
-
-    group_names = extract_group_names(df)
-
-    for group in group_names:
-        extract_single_schedule(df, group)
-
-    bar.next()
-
-warnings.resetwarnings()
 
 group_into_folders: bool = args["group_into_folders"]
 group_size: int = args["schedules_per_folder"]
 
-if group_into_folders:
-    # group all the schedules into folders. Each folder should have group_size schedules
-    # (except for the last folder, which may have less than group_size schedules)
+def extract_all_schedules(
+    path_to_doc_schedules: str,
+    group_into_folders: bool,
+    group_size: int):
 
-    # get all the schedules
-    schedules = os.listdir("output_json")
+    doc_schedules = os.listdir(path_to_doc_schedules)
 
-    # create folders
-    for i in range(0, len(schedules), group_size):
-        # overwrite existing folders
-        os.mkdir(f"output_json/group{i//group_size}")
+    # filter out non-word documents
+    doc_schedules = [doc for doc in doc_schedules if doc.endswith(".docx")]
 
-    # move schedules into folders
-    for i, schedule in enumerate(schedules):
-        os.rename(
-            f"output_json/{schedule}", f"output_json/group{i//group_size}/{schedule}"
-        )
+    # filter out opened word documents
+    doc_schedules = [doc for doc in doc_schedules if not doc.startswith("~$")]
+
+    bar = IncrementalBar("Parsing schedules...", max=len(doc_schedules))
+
+    for doc_schedule in doc_schedules:
+        # inputs:
+        # path_to_html = "document_pydoc_x_ВП-5.html"
+        path_to_html = os.path.join(path_to_doc_schedules, doc_schedule)
+
+        # Pass in a path
+        html = PyDocX.to_html(path_to_html)
+
+        df = pd.read_html(html, header=0)[0]
+        df = preprocess_table(df)
+
+        group_names = extract_group_names(df)
+
+        for group in group_names:
+            extract_single_schedule(df, group)
+
+        bar.next()
+
+    if group_into_folders:
+        # group all the schedules into folders. Each folder should have group_size schedules
+        # (except for the last folder, which may have less than group_size schedules)
+
+        # get all the schedules
+        schedules = os.listdir("output_json")
+
+        # create folders
+        for i in range(0, len(schedules), group_size):
+            # overwrite existing folders
+            os.mkdir(f"output_json/group{i//group_size}")
+
+        # move schedules into folders
+        for i, schedule in enumerate(schedules):
+            os.rename(
+                f"output_json/{schedule}", f"output_json/group{i//group_size}/{schedule}"
+            )
+            
+    warnings.resetwarnings()
+
+
+if __name__ == "__main__":
+    extract_all_schedules(
+        path_to_doc_schedules,
+        group_into_folders,
+        group_size
+    )
