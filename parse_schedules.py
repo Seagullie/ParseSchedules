@@ -222,24 +222,13 @@ group_into_folders: bool = args["group_into_folders"]
 group_size: int = args["schedules_per_folder"]
 
 def extract_all_schedules(
-    path_to_doc_schedules: str,
+    paths_to_doc_schedules: 'list[str]',
     group_into_folders: bool,
     group_size: int):
 
-    doc_schedules = os.listdir(path_to_doc_schedules)
+    bar = IncrementalBar("Parsing schedules...", max=len(paths_to_doc_schedules))
 
-    # filter out non-word documents
-    doc_schedules = [doc for doc in doc_schedules if doc.endswith(".docx")]
-
-    # filter out opened word documents
-    doc_schedules = [doc for doc in doc_schedules if not doc.startswith("~$")]
-    
-    # create full paths
-    doc_schedules = [os.path.join(path_to_doc_schedules, doc) for doc in doc_schedules]
-
-    bar = IncrementalBar("Parsing schedules...", max=len(doc_schedules))
-
-    for doc_schedule in doc_schedules:
+    for doc_schedule in paths_to_doc_schedules:
         # inputs:
         # path_to_html = "document_pydoc_x_ВП-5.html"
         # path_to_html = os.path.join(path_to_doc_schedules, doc_schedule)
@@ -280,8 +269,20 @@ def extract_all_schedules(
 
 
 if __name__ == "__main__":
+    
+    doc_schedules = os.listdir(path_to_doc_schedules)
+
+    # filter out non-word documents
+    doc_schedules = [doc for doc in doc_schedules if doc.endswith(".docx")]
+
+    # filter out opened word documents
+    doc_schedules = [doc for doc in doc_schedules if not doc.startswith("~$")]
+    
+    # create full paths
+    doc_schedules = [os.path.join(path_to_doc_schedules, doc) for doc in doc_schedules]
+    
     extract_all_schedules(
-        path_to_doc_schedules,
+        doc_schedules,
         group_into_folders,
         group_size
     )
