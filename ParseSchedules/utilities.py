@@ -2,7 +2,7 @@ import re
 
 from pandas import DataFrame, Series
 
-from models import DaySchedule
+from ParseSchedules.models import DaySchedule
 
 
 qualifications = [
