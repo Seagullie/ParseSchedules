@@ -10,4 +10,5 @@ setup(
     description='Extracts .json representations of schedules from .docx files',
     
     packages=find_packages(),
+    install_requires=requirements,
 )
