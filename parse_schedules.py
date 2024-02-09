@@ -233,13 +233,17 @@ def extract_all_schedules(
 
     # filter out opened word documents
     doc_schedules = [doc for doc in doc_schedules if not doc.startswith("~$")]
+    
+    # create full paths
+    doc_schedules = [os.path.join(path_to_doc_schedules, doc) for doc in doc_schedules]
 
     bar = IncrementalBar("Parsing schedules...", max=len(doc_schedules))
 
     for doc_schedule in doc_schedules:
         # inputs:
         # path_to_html = "document_pydoc_x_ВП-5.html"
-        path_to_html = os.path.join(path_to_doc_schedules, doc_schedule)
+        # path_to_html = os.path.join(path_to_doc_schedules, doc_schedule)
+        path_to_html = doc_schedule
 
         # Pass in a path
         html = PyDocX.to_html(path_to_html)
