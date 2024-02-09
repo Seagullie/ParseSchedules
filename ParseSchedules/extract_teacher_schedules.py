@@ -3,9 +3,9 @@
 import os
 import json
 from pprint import pprint
-from models import Lesson, WeeklySchedule
+from ParseSchedules.models import Lesson, WeeklySchedule
 
-from utilities import construct_empty_schedule, merge_classes
+from ParseSchedules.utilities import construct_empty_schedule, merge_classes
 
 path_to_student_schedules = "./output_json"
 student_schedules_json: "dict[str, WeeklySchedule]" = {}
