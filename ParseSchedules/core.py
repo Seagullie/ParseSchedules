@@ -9,6 +9,7 @@ from progress.bar import IncrementalBar
 from ParseSchedules.models import Lesson, WeeklySchedule
 
 from ParseSchedules.utilities import (
+    correct_spelling,
     remove_duplicates,
     strip_each_text_cell,
     label_upper_and_lower_duplicates,
@@ -123,6 +124,8 @@ def extract_single_schedule(df: pd.DataFrame, target_group: str):
                     day_df.to_json(orient="records", force_ascii=False)
                 )
             ]
+            
+            # mark classes as biweekly and assign week number
             for class_ in classes:
                 if not class_.label is None:
                     class_.isBiweekly = True
@@ -163,7 +166,10 @@ def preprocess_table(df: pd.DataFrame):
     # remove spaces and reverse the word if it ends with uppercase letter
     df["День"] = df["День"].map(lambda day: day.replace(" ", ""))
     df["День"] = df["День"].map(lambda day: day[::-1] if day[-1].isupper() else day)
-
+    
+    # fix day misspellings
+    df["День"] = df["День"].map(lambda day: correct_spelling(day, days_ukr))    
+    
     return df
 
 

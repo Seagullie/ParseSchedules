@@ -1,6 +1,6 @@
 import re
-
 from pandas import DataFrame, Series
+from fuzzywuzzy import process
 
 from ParseSchedules.models import DaySchedule
 
@@ -169,6 +169,21 @@ def construct_empty_schedule() -> DaySchedule:
         json_[day] = {"classes": []}
     return json_
 
+def correct_spelling(word, correct_words):
+    
+    is_misspelled = word not in correct_words
+    
+    if not is_misspelled:
+        return word
+    
+    # Find the closest match to word in correct_words
+    closest_match = process.extractOne(word, correct_words)
+    
+    # If the match is close enough, return it. Otherwise, return the original word.
+    if closest_match[1] > 80:  # You can adjust this threshold as needed
+        return closest_match[0]
+    else:
+        return word
 
 # merges classes with same signature which is (index, name, week). The group fields are combined into final merge
 def merge_classes(classes: "list[Series]"):
