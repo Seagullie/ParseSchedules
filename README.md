@@ -2,13 +2,11 @@
 
 Парсер розкладів для [переглядача розкладів під андроїд та веб.]()
 
-
-
 Цей скрипт витягує таблиці зі розкладами із вордівських файлів.
 
 Загальний хід: **.docx** --> **pandas таблиця** --> **.json зі розкладом**
 
-`python parse_schedules.py -h`
+`python -m ParseSchedules.parse_schedules -h`
 
 ```shell
 usage: parse_schedules.py [-h] [-w WORD_SCHEDULES] [-g] [-n SCHEDULES_PER_FOLDER] [-v]
@@ -29,7 +27,7 @@ optional arguments:
 Приклад використання скрипта:
 
 ```
-python parse_schedules.py -w ./word_schedules
+python -m ParseSchedules.parse_schedules -g -w ParseSchedules/word_schedules
 ```
 
 `Parsing schedules... |███████████▌                    | 13/36`

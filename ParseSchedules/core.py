@@ -1,5 +1,6 @@
 import logging
 import os
+from typing import List
 import pandas as pd
 import json
 from pydocx import PyDocX
@@ -174,16 +175,14 @@ def preprocess_table(df: pd.DataFrame):
 
 
 def extract_all_schedules(
-    paths_to_doc_schedules: 'list[str]',
+    paths_to_doc_schedules: 'List[str]',
     group_into_folders: bool,
     group_size: int):
 
     bar = IncrementalBar("Parsing schedules...", max=len(paths_to_doc_schedules))
 
     for doc_schedule in paths_to_doc_schedules:
-        # inputs:
-        # path_to_html = "document_pydoc_x_ВП-5.html"
-        # path_to_html = os.path.join(path_to_doc_schedules, doc_schedule)
+        print("[INFO] Parsing", doc_schedule)
         path_to_html = doc_schedule
 
         # Pass in a path

@@ -1,0 +1,5 @@
+beautifulsoup4==4.13.3
+fuzzywuzzy==0.18.0
+pandas==2.0.3
+progress==1.6
+PyDocX==0.9.10
