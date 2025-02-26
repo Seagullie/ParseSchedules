@@ -20,7 +20,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument(
     "-w",
     "--word_schedules",
-    default="./word_schedules",
+    default="ParseSchedules/word_schedules",
     help="Path to .docx files with schedules",
 )
 

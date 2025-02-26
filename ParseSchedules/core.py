@@ -144,6 +144,7 @@ def extract_single_schedule(df: pd.DataFrame, target_group: str):
             encoding="utf-8",
         ) as f:
             f.write(dfs_per_day_json_string)
+            print(f"[INFO] {target_group}.json saved to output_json/{target_group}.json")
 
     df_to_json()
     logging.info(df)
@@ -192,6 +193,12 @@ def extract_all_schedules(
         df = preprocess_table(df)
 
         group_names = extract_group_names(df)
+        
+        print("[INFO] Found groups:", group_names)
+        
+        if len(group_names) == 0:
+            print("[WARNING] No groups found. Skipping...")
+            continue
 
         for group in group_names:
             extract_single_schedule(df, group)

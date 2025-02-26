@@ -1,4 +1,5 @@
 import re
+from typing import List
 from pandas import DataFrame, Series
 from fuzzywuzzy import process
 
@@ -114,7 +115,7 @@ def extract_group_names(df: DataFrame):
     # it's a group if it follows this pattern: 1-2 letters, then dash, then 1-2 numbers
     pattern = r"(\w{1,2}-\d{1,2})"
 
-    cols: list[str] = df.columns
+    cols: List[str] = df.columns
 
     filtered_cols = [col for col in cols if re.search(pattern, col)]
 
