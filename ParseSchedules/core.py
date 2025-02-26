@@ -197,8 +197,7 @@ def extract_all_schedules(
         print("[INFO] Found groups:", group_names)
         
         if len(group_names) == 0:
-            print("[WARNING] No groups found. Skipping...")
-            continue
+            raise ValueError("No groups found.")
 
         for group in group_names:
             extract_single_schedule(df, group)
